@@ -1,23 +1,20 @@
-{:deps {:aliases []}
-
- :builds
+{:builds
  {:browser-lib
-  {:target :browser
+  {:modules {:browser-lib {:entries [nuid.bn]}}
    :output-dir "target/browser-lib"
    :asset-path "target/browser-lib"
-   :modules
-   {:browser-lib
-    {:entries [nuid.bn]}}}
+   :target :browser}
 
   :node-lib
-  {:target :node-library
-   :output-to "target/node-lib/nuid_bn.js"
-   :exports-var nuid.bn/exports}
+  {:output-to "target/node-lib/nuid_bn.js"
+   :exports-var nuid.bn/exports
+   :target :node-library}
 
   :tests
-  {:target :browser-test
+  {:devtools
+   {:http-root "target/test"
+    :http-port 54345}
    :test-dir "target/test"
    :runner-ns runner-main
-   :devtools
-   {:http-port 54345
-    :http-root "target/test"}}}}
+   :target :browser-test}}
+ :deps {:aliases []}}

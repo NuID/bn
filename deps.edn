@@ -1,12 +1,12 @@
-{:paths ["src"]
- :deps
+{:deps
  {org.clojure/clojurescript {:mvn/version "1.10.439"}
-  org.clojure/clojure {:mvn/version "1.10.0-beta7"}
   com.cognitect/transit-cljs {:mvn/version "0.8.256"}
-  com.cognitect/transit-clj {:mvn/version "0.8.309"}}
+  com.cognitect/transit-clj {:mvn/version "0.8.309"}
+  org.clojure/clojure {:mvn/version "1.10.0-RC2"}}
  :aliases
  {:test
   {:extra-deps {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}}
    :extra-paths ["test"]}
   :cambada
-  {:extra-deps {luchiniatwork/cambada {:mvn/version "1.0.0"}}}}}
+  {:extra-deps {luchiniatwork/cambada {:mvn/version "1.0.0"}}}}
+ :paths ["src"]}
