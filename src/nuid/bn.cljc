@@ -12,11 +12,11 @@
   (->BN #?(:clj (.multiply (.-n a) (.-n b))
            :cljs (.mul (.-n a) (.-n b)))))
 
-(defn lte [a b]
+(defn lte? [a b]
   #?(:clj (<= (.-n a) (.-n b))
      :cljs (.lte (.-n a) (.-n b))))
 
-(defn eq [a b]
+(defn eq? [a b]
   #?(:clj (= (.-n a) (.-n b))
      :cljs (.eq (.-n a) (.-n b))))
 
@@ -39,7 +39,7 @@
   ([bn] (bn->str bn 10))
   ([bn radix] (-> bn .-n (.toString radix))))
 
-(def tag (str ::BN))
+(def tag (str "bn"))
 
 (def write-handler
   {BN (t/write-handler
@@ -56,9 +56,9 @@
                 :str->bn str->bn
                 :bn->str bn->str
                 :modulus modulus
+                :lte? lte?
                 :add add
                 :mul mul
-                :lte lte
                 :neg neg
                 :tag tag
-                :eq eq}))
+                :eq? eq?}))
