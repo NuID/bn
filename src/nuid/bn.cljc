@@ -39,7 +39,7 @@
   ([bn] (bn->str bn 10))
   ([bn radix] (-> bn .-n (.toString radix))))
 
-(def tag (str "bn"))
+(def tag "bn")
 
 (def write-handler
   {BN (t/write-handler
