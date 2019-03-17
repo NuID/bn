@@ -7,6 +7,9 @@
  {:test
   {:extra-deps {org.clojure/test.check {:mvn/version "0.10.0-alpha3"}},
    :extra-paths ["test"]},
-  :cambada
-  {:extra-deps {luchiniatwork/cambada {:mvn/version "1.0.0"}}}},
+  :repl
+  {:extra-deps
+   {nuid/repl
+    {:git/url "git@github.com:nuid/repl",
+     :sha "4e6d77e2419b38b1e913b1cba65b23fe3c123b52"}}}},
  :paths ["src"]}
