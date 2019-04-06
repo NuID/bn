@@ -1,6 +1,6 @@
 # nuid.bn
 
-Cross-platform BN library.
+Cross-platform arbitrary precision integers.
 
 ## Requirements
 
@@ -15,14 +15,15 @@ Cross-platform BN library.
 #### usage:
 
 ```
-(require '[nuid.bn :as bn])
-(def a (bn/from "42"))
-(def b (bn/from "14159265358979323846264338327950288419716939937510"))
-(def c (bn/add a b))
-(bn/eq? a b)  ;; => false
-(bn/lte? a b) ;; => true
-(bn/str c)    ;; => "14159265358979323846264338327950288419716939937552"
-(bn/str c 16) ;; => "9b02b6aef2f4c6d5f1a5aae08bf77321e33e47710"
+$ clj # or shadow-cljs node-repl
+=> (require '[nuid.bn :as bn])
+=> (def a (bn/from "42"))
+=> (def b (bn/from "14159265358979323846264338327950288419716939937510"))
+=> (def c (bn/add a b))
+=> (bn/eq? a b)  ;; => false
+=> (bn/lte? a b) ;; => true
+=> (bn/str c)    ;; => "14159265358979323846264338327950288419716939937552"
+=> (bn/str c 16) ;; => "9b02b6aef2f4c6d5f1a5aae08bf77321e33e47710"
 ```
 
 ## From JavaScript
