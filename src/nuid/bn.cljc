@@ -1,7 +1,8 @@
 (ns nuid.bn
   (:require
    [cognitect.transit :as t]
-   #?@(:cljs [["bn.js" :as bnjs]])))
+   #?@(:cljs [["bn.js" :as bnjs]]))
+  (:refer-clojure :exclude [str]))
 
 (defrecord BN [n])
 
@@ -27,38 +28,35 @@
   (->BN #?(:clj (.negate (.-n a))
            :cljs (.neg (.-n a)))))
 
-(defn str->bn
-  ([s] (str->bn s 10))
+(defn from
+  ([s] (from s 10))
   ([s radix]
    (->BN #?(:clj (condp = (type s)
                    java.lang.String (BigInteger. s radix)
                    (BigInteger. 1 s))
             :cljs (bnjs/BN. s radix)))))
 
-(defn bn->str
-  ([bn] (bn->str bn 10))
-  ([bn radix] (-> bn .-n (.toString radix))))
+(defn str
+  ([bn] (str bn 10))
+  ([bn base] (.toString (.-n bn) base)))
 
 (def tag "bn")
 
 (def write-handler
-  {BN (t/write-handler
-       (constantly tag)
-       (fn [n] (bn->str n 16)))})
+  {BN (t/write-handler (constantly tag) (fn [n] (str n 16)))})
 
 (def read-handler
-  {tag (t/read-handler
-        (fn [n] (str->bn n 16)))})
+  {tag (t/read-handler (fn [n] (from n 16)))})
 
 #?(:cljs (def exports
-           #js {:write-handler write-handler
-                :read-handler read-handler
-                :str->bn str->bn
-                :bn->str bn->str
+           #js {:writeHandler write-handler
+                :readHandler read-handler
                 :modulus modulus
-                :lte? lte?
+                :toString str
+                :from from
+                :lte lte?
                 :add add
                 :mul mul
                 :neg neg
                 :tag tag
-                :eq? eq?}))
+                :eq eq?}))
