@@ -14,7 +14,7 @@
    :compiler-options
    {:externs ["externs/bn.ext.js"]}}
 
-  :tests
+  :test
   {:devtools
    {:http-root "target/test"
     :http-port 54345}
