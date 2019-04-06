@@ -16,23 +16,24 @@
          (gen/fmap #(if (and negative? (not (zero? (first %)))) (cons "-" %) %))
          (gen/fmap clojure.string/join))))
 
-(def gen-bn
-  (gen/fmap bn/str->bn gen-bn-str))
+(def gen-bn (gen/fmap bn/from gen-bn-str))
 
 (ct/defspec string-roundtrip 5000
-  (prop/for-all [i gen-bn-str]
-                (= (bn/bn->str (bn/str->bn i)) i)))
+  (prop/for-all
+   [i gen-bn-str]
+   (= (bn/str (bn/from i)) i)))
 
 (ct/defspec eq 5000
-  (prop/for-all [a gen-bn]
-                (bn/eq a a)))
+  (prop/for-all
+   [a gen-bn]
+   (bn/eq? a a)))
 
 (ct/defspec add-commutative 5000
   (prop/for-all
    [a gen-bn
     b gen-bn]
-   (bn/eq (bn/add a b)
-          (bn/add b a))))
+   (bn/eq? (bn/add a b)
+           (bn/add b a))))
 
 (ct/defspec add-neg 5000
   (prop/for-all
@@ -41,5 +42,5 @@
    (let [a+b (bn/add a b)
          a+b-b (bn/add a+b (bn/neg b))
          a+b-a (bn/add a+b (bn/neg a))]
-     (and (bn/eq a+b-a b)
-          (bn/eq a+b-b a)))))
+     (and (bn/eq? a+b-a b)
+          (bn/eq? a+b-b a)))))
