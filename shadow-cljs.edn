@@ -1,14 +1,18 @@
 {:builds
  {:browser
-  {:modules {:browser {:entries [nuid.bn]}}
+  {:modules {:nuid_bn {:entries [nuid.bn]}}
    :output-dir "target/browser"
    :asset-path "target/browser"
-   :target :browser}
+   :target :browser
+   :compiler-options
+   {:externs ["externs/bn.ext.js"]}}
 
   :node
   {:output-to "target/node/nuid_bn.js"
    :exports-var nuid.bn/exports
-   :target :node-library}
+   :target :node-library
+   :compiler-options
+   {:externs ["externs/bn.ext.js"]}}
 
   :tests
   {:devtools
