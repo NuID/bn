@@ -30,11 +30,10 @@
 
 (defn from
   ([s] (from s 10))
-  ([s radix]
-   (->BN #?(:clj (condp = (type s)
-                   java.lang.String (BigInteger. s radix)
-                   (BigInteger. 1 s))
-            :cljs (bnjs/BN. s radix)))))
+  ([s radix] (->BN #?(:clj (condp = (type s)
+                             java.lang.String (BigInteger. s radix)
+                             (BigInteger. 1 s))
+                      :cljs (bnjs/BN. s radix)))))
 
 (defn str
   ([bn] (str bn 10))
