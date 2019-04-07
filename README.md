@@ -8,11 +8,11 @@ Cross-platform arbitrary precision integers.
 
 ## From Clojure and ClojureScript
 
-#### tools.deps:
+### tools.deps:
 
 `{nuid/bn {:git/url "https://github.com/nuid/bn" :sha "..."}`
 
-#### usage:
+### usage:
 
 ```
 $ clj # or shadow-cljs node-repl
@@ -30,7 +30,7 @@ $ clj # or shadow-cljs node-repl
 
 Until [`goog.closure`](https://github.com/google/closure-compiler/issues/3167) and the JS ecosystem generally supports native [BigInts](https://developers.google.com/web/updates/2018/05/bigint), this library is a thin wrapper over [`bn.js`](https://github.com/indutny/bn.js/)
 
-#### node:
+### node:
 
 ```
 $ shadow-cljs release node
@@ -42,7 +42,7 @@ $ node
 > BN.toString(c, 16);
 ```
 
-#### browser:
+### browser:
 
 ```
 $ shadow-cljs release browser
@@ -65,14 +65,14 @@ The purpose of `nuid.bn` and sibling `nuid` libraries (e.g. [`nuid.ecc`](https:/
 
 Install [`git-hooks`](https://github.com/icefox/git-hooks) and fire away. Make sure not to get bitten by [`externs`](https://clojurescript.org/guides/externs) if modifying `npm` dependencies.
 
-#### formatting:
+### formatting:
 
 ```
 $ clojure -A:cljfmt            # check
 $ clojure -A:cljfmt:cljfmt/fix # fix
 ```
 
-#### dependencies:
+### dependencies:
 
 ```
 ## check
