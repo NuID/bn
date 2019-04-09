@@ -2,7 +2,7 @@
   (:require
    [cognitect.transit :as t]
    #?@(:cljs [["bn.js" :as bnjs]]))
-  (:refer-clojure :exclude [str]))
+  (:refer-clojure :exclude [str mod]))
 
 (defrecord BN [n])
 
@@ -13,15 +13,15 @@
   (->BN #?(:clj (.multiply (.-n a) (.-n b))
            :cljs (.mul (.-n a) (.-n b)))))
 
-(defn lte? [a b]
-  #?(:clj (<= (.-n a) (.-n b))
-     :cljs (.lte (.-n a) (.-n b))))
+(defn lt? [a b]
+  #?(:clj (< (.-n a) (.-n b))
+     :cljs (.lt (.-n a) (.-n b))))
 
 (defn eq? [a b]
   #?(:clj (= (.-n a) (.-n b))
      :cljs (.eq (.-n a) (.-n b))))
 
-(defn modulus [a m]
+(defn mod [a m]
   (->BN (.mod (.-n a) (.-n m))))
 
 (defn neg [a]
@@ -50,12 +50,12 @@
 #?(:cljs (def exports
            #js {:writeHandler write-handler
                 :readHandler read-handler
-                :modulus modulus
                 :toString str
                 :from from
-                :lte lte?
+                :mod mod
                 :add add
                 :mul mul
                 :neg neg
                 :tag tag
+                :lt lt?
                 :eq eq?}))

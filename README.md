@@ -21,7 +21,7 @@ $ clj # or shadow-cljs node-repl
 => (def b (bn/from "14159265358979323846264338327950288419716939937510"))
 => (def c (bn/add a b))
 => (bn/eq? a b)  ;; => false
-=> (bn/lte? a b) ;; => true
+=> (bn/lt? a b)  ;; => true
 => (bn/str c)    ;; => "14159265358979323846264338327950288419716939937552"
 => (bn/str c 16) ;; => "9b02b6aef2f4c6d5f1a5aae08bf77321e33e47710"
 ```
@@ -59,7 +59,7 @@ This library is a thin wrapper around Java's native `BigInteger`. To call `nuid.
 
 ## Notes
 
-The purpose of `nuid.bn` and sibling `nuid` libraries (e.g. [`nuid.ecc`](https://github.com/nuid/ecc)) is to abstract over platform-specific differences and provide a common interface to fundamental dependencies. This allows us to express dependent logic (e.g. [`nuid.zka`](https://github.com/nuid/zka)) once in pure Clojure(Script), and use it from each of the host platforms (Java, JavaScript, CLR). This is particularly useful for generating and verifying proofs across service boundaries.
+The purpose of `nuid.bn` and sibling `nuid` libraries (e.g. [`nuid.elliptic`](https://github.com/nuid/elliptic)) is to abstract over platform-specific differences and provide a common interface to fundamental dependencies. This allows us to express dependent logic (e.g. [`nuid.zk`](https://github.com/nuid/zk)) once in pure Clojure(Script), and use it from each of the host platforms (Java, JavaScript, CLR). This is particularly useful for generating and verifying proofs across service boundaries.
 
 ## Contributing
 
