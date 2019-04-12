@@ -1,61 +1,98 @@
 (ns nuid.bn
   (:require
+   [nuid.transit :as transit]
    [cognitect.transit :as t]
-   #?@(:cljs [["bn.js" :as bnjs]]))
+   #?@(:cljs [["bn.js" :as bn.js]]))
   (:refer-clojure :exclude [str mod]))
 
-(defrecord BN [n])
+(defprotocol BNable
+  (from [x] [x r]))
 
-(defn add [a b]
-  (->BN (.add (.-n a) (.-n b))))
+(defprotocol BN
+  (add [a b])
+  (mul [a b])
+  (lt? [a b])
+  (eq? [a b])
+  (mod [a m])
+  (neg [a])
+  (str [a] [a r]))
 
-(defn mul [a b]
-  (->BN #?(:clj (.multiply (.-n a) (.-n b))
-           :cljs (.mul (.-n a) (.-n b)))))
+#?(:clj
+   (extend-protocol BNable
+     (type (byte-array 0))
+     (from
+       ([x] (BigInteger. 1 x))
+       ([x _] (BigInteger. 1 x)))
 
-(defn lt? [a b]
-  #?(:clj (< (.-n a) (.-n b))
-     :cljs (.lt (.-n a) (.-n b))))
+     java.lang.String
+     (from
+       ([x] (from x 10))
+       ([x r] (BigInteger. x r)))))
 
-(defn eq? [a b]
-  #?(:clj (= (.-n a) (.-n b))
-     :cljs (.eq (.-n a) (.-n b))))
+#?(:clj
+   (extend-type java.math.BigInteger
+     BN
+     (add [a b] (.add a b))
+     (mul [a b] (.multiply a b))
+     (lt? [a b] (< a b))
+     (eq? [a b] (= a b))
+     (mod [a m] (.mod a m))
+     (neg [a] (.negate a))
+     (str
+       ([a] (str a 10))
+       ([a r] (.toString a r)))
 
-(defn mod [a m]
-  (->BN (.mod (.-n a) (.-n m))))
+     transit/TransitWritable
+     (rep [x] (str x 16))))
 
-(defn neg [a]
-  (->BN #?(:clj (.negate (.-n a))
-           :cljs (.neg (.-n a)))))
+#?(:cljs
+   (extend-protocol BNable
+     js/Buffer
+     (from
+       ([x] (from x 10))
+       ([x r] (bn.js/BN. x r)))
 
-(defn from
-  ([s] (from s 10))
-  ([s radix] (->BN #?(:clj (condp = (type s)
-                             java.lang.String (BigInteger. s radix)
-                             (BigInteger. 1 s))
-                      :cljs (bnjs/BN. s radix)))))
+     string
+     (from
+       ([x] (from x 10))
+       ([x r] (bn.js/BN. x r)))))
 
-(defn str
-  ([bn] (str bn 10))
-  ([bn base] (.toString (.-n bn) base)))
+#?(:cljs
+   (extend-type bn.js/BN
+     BN
+     (add [a b] (.add a b))
+     (mul [a b] (.mul a b))
+     (lt? [a b] (.lt a b))
+     (eq? [a b] (.eq a b))
+     (mod [a m] (.mod a m))
+     (neg [a] (.neg a))
+     (str
+       ([a] (str a 10))
+       ([a r] (.toString a r)))
+
+     transit/TransitWritable
+     (rep [x] (str x 16))))
 
 (def tag "bn")
 
-(def write-handler
-  {BN (t/write-handler (constantly tag) (fn [n] (str n 16)))})
-
 (def read-handler
-  {tag (t/read-handler (fn [n] (from n 16)))})
+  {tag (t/read-handler #(from % 16))})
 
-#?(:cljs (def exports
-           #js {:writeHandler write-handler
-                :readHandler read-handler
-                :toString str
-                :from from
-                :mod mod
-                :add add
-                :mul mul
-                :neg neg
-                :tag tag
-                :lt lt?
-                :eq eq?}))
+(def write-handler
+  (let [h (t/write-handler (constantly tag) #(transit/rep %))]
+    #?(:clj {java.math.BigInteger h}
+       :cljs {bn.js/BN h})))
+
+#?(:cljs
+   (def exports
+     #js {:writeHandler write-handler
+          :readHandler read-handler
+          :toString str
+          :from from
+          :mod mod
+          :add add
+          :mul mul
+          :neg neg
+          :tag tag
+          :lt lt?
+          :eq eq?}))
