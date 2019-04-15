@@ -61,6 +61,10 @@ This library is a thin wrapper around Java's native `BigInteger`. To call `nuid.
 
 The purpose of `nuid.bn` and sibling `nuid` libraries (e.g. [`nuid.elliptic`](https://github.com/nuid/elliptic)) is to abstract over platform-specific differences and provide a common interface to fundamental dependencies. This allows us to express dependent logic (e.g. [`nuid.zk`](https://github.com/nuid/zk)) once in pure Clojure(Script), and use it from each of the host platforms (Java, JavaScript, CLR). This is particularly useful for generating and verifying proofs across service boundaries.
 
+## Licensing
+
+Apache v2.0 or MIT
+
 ## Contributing
 
 Install [`git-hooks`](https://github.com/icefox/git-hooks) and fire away. Make sure not to get bitten by [`externs`](https://clojurescript.org/guides/externs) if modifying `npm` dependencies.
