@@ -10,7 +10,7 @@ Cross-platform arbitrary precision integers.
 
 ### tools.deps:
 
-`{nuid/bn {:git/url "https://github.com/nuid/bn" :sha "..."}`
+`{nuid/bn {:git/url "https://github.com/nuid/bn" :sha "..."}}`
 
 ### usage:
 
