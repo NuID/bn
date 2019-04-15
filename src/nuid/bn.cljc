@@ -79,9 +79,8 @@
   {tag (t/read-handler #(from % 16))})
 
 (def write-handler
-  (let [h (t/write-handler (constantly tag) #(transit/rep %))]
-    #?(:clj {java.math.BigInteger h}
-       :cljs {bn.js/BN h})))
+  (let [c #?(:clj java.math.Biginteger :cljs bn.js/BN)]
+    {c (t/write-handler (constantly tag) #(transit/rep %))}))
 
 #?(:cljs
    (def exports
