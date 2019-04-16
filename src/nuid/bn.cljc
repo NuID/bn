@@ -79,7 +79,7 @@
   {tag (t/read-handler #(from % 16))})
 
 (def write-handler
-  (let [c #?(:clj java.math.Biginteger :cljs bn.js/BN)]
+  (let [c #?(:clj java.math.BigInteger :cljs bn.js/BN)]
     {c (t/write-handler (constantly tag) #(transit/rep %))}))
 
 #?(:cljs
