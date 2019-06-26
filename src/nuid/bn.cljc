@@ -17,6 +17,10 @@
   (neg [a])
   (str [a] [a r]))
 
+(defn rep
+  [bn]
+  (str bn 16))
+
 #?(:clj
    (extend-protocol BNable
      (type (byte-array 0))
@@ -40,10 +44,7 @@
      (neg [a] (.negate a))
      (str
        ([a] (str a 10))
-       ([a r] (.toString a r)))
-
-     transit/TransitWritable
-     (rep [x] (str x 16))))
+       ([a r] (.toString a r)))))
 
 #?(:cljs
    (extend-protocol BNable
@@ -68,30 +69,31 @@
      (neg [a] (.neg a))
      (str
        ([a] (str a 10))
-       ([a r] (.toString a r)))
+       ([a r] (.toString a r)))))
 
-     transit/TransitWritable
-     (rep [x] (str x 16))))
+(def transit-tag "bn")
 
-(def tag "bn")
+(def transit-read-handler
+  {transit-tag (t/read-handler #(from % 16))})
 
-(def read-handler
-  {tag (t/read-handler #(from % 16))})
-
-(def write-handler
-  (let [c #?(:clj java.math.BigInteger :cljs bn.js/BN)]
-    {c (t/write-handler (constantly tag) #(transit/rep %))}))
+(def transit-write-handler
+  (let [c #?(:clj java.math.BigInteger
+             :cljs bn.js/BN)]
+    {c (t/write-handler
+        (constantly transit-tag)
+        #(rep %))}))
 
 #?(:cljs
    (def exports
-     #js {:writeHandler write-handler
-          :readHandler read-handler
+     #js {:transitWriteHandler transit-write-handler
+          :transitReadHandler transit-read-handler
+          :transitTag transit-tag
           :toString str
           :from from
+          :rep rep
           :mod mod
           :add add
           :mul mul
           :neg neg
-          :tag tag
           :lt lt?
           :eq eq?}))
