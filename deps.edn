@@ -1,7 +1,7 @@
 {:deps
  {nuid/transit
   {:git/url "https://github.com/nuid/transit.git",
-   :sha "73a09f2dd8c86ba3ae83b7b0473fa2fea20ba395"},
+   :sha "96826ac172dbbcf28a4cac7ac9cea2e89cb26311"},
   org.clojure/clojurescript {:mvn/version "1.10.520"},
   com.cognitect/transit-cljs {:mvn/version "0.8.256"},
   com.cognitect/transit-clj {:mvn/version "0.8.313"},
@@ -26,5 +26,5 @@
   {:extra-deps
    {nuid/deps
     {:git/url "https://github.com/nuid/deps.git",
-     :sha "93dc4bbd8b171a034809a5eebf217be83e391ef8"}}}},
+     :sha "168230c31b8b38168377cc177b39a2d87b67ed1f"}}}},
  :paths ["src"]}
