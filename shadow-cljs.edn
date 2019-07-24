@@ -15,4 +15,4 @@
    :test-dir "target/test",
    :runner-ns runner-main,
    :target :browser-test}},
- :deps {:aliases []}}
+ :deps {:aliases [:shadow]}}
