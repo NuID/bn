@@ -48,6 +48,16 @@
 
 #?(:cljs
    (extend-protocol BNable
+     array
+     (from
+       ([x] (from x 10))
+       ([x r] (bn.js/BN. x r)))
+
+     js/Uint8Array
+     (from
+       ([x] (from x 10))
+       ([x r] (bn.js/BN. x r)))
+
      js/Buffer
      (from
        ([x] (from x 10))
