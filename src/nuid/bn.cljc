@@ -2,7 +2,8 @@
   (:require
    [nuid.transit :as transit]
    [cognitect.transit :as t]
-   #?@(:cljs [["bn.js" :as bn.js]]))
+   #?@(:cljs [["bn.js" :as bn.js]
+              ["buffer" :as b]]))
   (:refer-clojure :exclude [str mod]))
 
 (defprotocol BNable
@@ -58,7 +59,7 @@
        ([x] (from x 10))
        ([x r] (bn.js/BN. x r)))
 
-     js/Buffer
+     b/Buffer
      (from
        ([x] (from x 10))
        ([x r] (bn.js/BN. x r)))
