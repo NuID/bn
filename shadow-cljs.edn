@@ -1,18 +1,18 @@
-{:builds
+{:deps {:aliases [:shadow]}
+ :builds
  {:browser
-  {:modules {:nuid_bn {:entries [nuid.bn]}},
+  {:modules    {:nuid_bn {:entries [nuid.bn]}},
    :output-dir "target/browser",
    :asset-path "target/browser",
-   :target :browser,
-   :compiler-options {:externs ["externs/bn.ext.js"]}},
+   :target     :browser},
+
   :node
-  {:output-to "target/node/nuid_bn.js",
+  {:output-to   "target/node/nuid_bn.js",
    :exports-var nuid.bn/exports,
-   :target :node-library,
-   :compiler-options {:externs ["externs/bn.ext.js"]}},
+   :target      :node-library},
+
   :test
-  {:devtools {:http-root "target/test", :http-port 54345},
-   :test-dir "target/test",
+  {:devtools  {:http-root "target/test", :http-port 54345},
+   :test-dir  "target/test",
    :runner-ns runner-main,
-   :target :browser-test}},
- :deps {:aliases [:shadow]}}
+   :target    :browser-test}}}

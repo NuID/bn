@@ -54,12 +54,13 @@
            (= ::internal (first c)) (str (second c))
            :else                    ::s/invalid))))
     (fn []
-      (->> (gen/vector (gen/gen-for-pred nat-int?) 5 100)
-           (gen/fmap (partial drop-while zero?))
-           (gen/such-that not-empty)
-           (gen/fmap clojure.string/join)
-           (gen/fmap from)
-           (gen/fmap (fn [n] (if (zero? (rand-int 2)) (neg n) n)))))))
+      (->>
+       (gen/vector (gen/gen-for-pred nat-int?) 5 100)
+       (gen/fmap (partial drop-while zero?))
+       (gen/such-that not-empty)
+       (gen/fmap clojure.string/join)
+       (gen/fmap from)
+       (gen/fmap (fn [n] (if (zero? (rand-int 2)) (neg n) n)))))))
 
 #?(:clj
    (extend-protocol BNable
