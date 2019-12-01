@@ -1,35 +1,19 @@
 {:deps
- {nuid/transit
-  {:git/url "https://github.com/nuid/transit.git",
-   :sha "3ba35a2112aeb642a67833b97ed9e7ff5a266217"},
-  org.clojure/clojurescript {:mvn/version "1.10.520"},
-  com.cognitect/transit-cljs {:mvn/version "0.8.256"},
-  com.cognitect/transit-clj {:mvn/version "0.8.319"},
+ {com.cognitect/transit-clj {:mvn/version "0.8.319"},
   org.clojure/clojure {:mvn/version "1.10.1"},
   org.clojure/test.check {:mvn/version "0.10.0"},
-  org.clojure/spec.alpha {:mvn/version "0.2.176"},
   org.clojure/spec-alpha2
   {:git/url "https://github.com/clojure/spec-alpha2",
-   :sha "2a0a7c49c86e31b528be857ed004a4931a0c2551"}},
+   :sha "de38650874c6f0bc19e7755feab4d65b3fffb268"},
+  nuid/transit
+  {:git/url "https://github.com/nuid/transit.git",
+   :sha "3ba35a2112aeb642a67833b97ed9e7ff5a266217"}},
  :aliases
- {:test
-  {:extra-deps {org.clojure/test.check {:mvn/version "0.10.0"}},
-   :extra-paths ["test"]},
-  :cljfmt
+ {:cljs
   {:extra-deps
-   {com.jameslaverack/cljfmt-runner
-    {:git/url "https://github.com/JamesLaverack/cljfmt-runner",
-     :sha "6383fbb0bd22a21c0edf5b699425504d9f0a958a"}},
-   :main-opts ["-m" "cljfmt-runner.check"]},
-  :cljfmt/fix {:main-opts ["-m" "cljfmt-runner.fix"]},
-  :depot
-  {:extra-deps {olical/depot {:mvn/version "1.8.4"}},
-   :main-opts ["-m" "depot.outdated.main"]},
-  :depot/update {:main-opts ["-m" "depot.outdated.main --update"]},
-  :shadow {:extra-deps {thheller/shadow-cljs {:mvn/version "2.8.69"}}},
-  :repl
-  {:extra-deps
-   {nuid/deps
-    {:git/url "https://github.com/nuid/deps.git",
-     :sha "843e7ff969e743a304aff39ab3d8f2e32b6847cf"}}}},
+   {org.clojure/clojurescript {:mvn/version "1.10.597"},
+    org.clojure/spec.alpha {:mvn/version "0.2.176"},
+    com.cognitect/transit-cljs {:mvn/version "0.8.256"},
+    thheller/shadow-cljs {:mvn/version "2.8.74"}}},
+  :test {:extra-paths ["test"]}},
  :paths ["src"]}

@@ -1,7 +1,6 @@
 (ns nuid.bn
   (:refer-clojure :exclude [str mod])
   (:require
-   [nuid.transit :as transit]
    [cognitect.transit :as t]
    #?@(:clj
        [[clojure.spec-alpha2.gen :as gen]
