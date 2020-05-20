@@ -1,18 +1,1 @@
-{:deps {:aliases [:cljs]}
- :builds
- {:browser
-  {:modules    {:nuid_bn {:entries [nuid.bn]}},
-   :output-dir "target/browser",
-   :asset-path "target/browser",
-   :target     :browser},
-
-  :node
-  {:output-to   "target/node/nuid_bn.js",
-   :exports-var nuid.bn/exports,
-   :target      :node-library},
-
-  :test
-  {:devtools  {:http-root "target/test", :http-port 54345},
-   :test-dir  "target/test",
-   :runner-ns runner-main,
-   :target    :browser-test}}}
+{:deps {:aliases [:cljs]}}
