@@ -5,7 +5,9 @@
        :cljs [[clojure.spec.alpha :as s]])))
 
 (defprotocol BNable
-  (from [x] [x r]))
+  (from
+    [x]
+    [x radix]))
 
 (defprotocol BN
   (add [a b])
@@ -14,7 +16,9 @@
   (eq? [a b])
   (mod [a m])
   (neg [a])
-  (str [a] [a r]))
+  (str
+    [a]
+    [a radix]))
 
 (s/def ::bn
   (fn [n] (satisfies? BN n)))

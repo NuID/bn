@@ -51,11 +51,17 @@
        (gen/fmap proto/from)
        (gen/fmap (fn [n] (if (zero? (rand-int 2)) (proto/neg n) n)))))))
 
-(def from proto/from)
-(def add  proto/add)
-(def mul  proto/mul)
-(def lt?  proto/lt?)
-(def eq?  proto/eq?)
-(def mod  proto/mod)
-(def neg  proto/neg)
-(def str  proto/str)
+(defn from
+  ([x]       (proto/from x))
+  ([x radix] (proto/from x radix)))
+
+(defn add [a b] (proto/add a b))
+(defn mul [a b] (proto/mul a b))
+(defn lt? [a b] (proto/lt? a b))
+(defn eq? [a b] (proto/eq? a b))
+(defn mod [a m] (proto/mod a m))
+(defn neg [a]   (proto/neg a))
+
+(defn str
+  ([a]       (proto/str a))
+  ([a radix] (proto/str a radix)))
