@@ -1,16 +1,12 @@
 (ns nuid.bn
   (:refer-clojure :exclude [str mod])
   (:require
+   [clojure.spec.alpha :as s]
+   [clojure.spec.gen.alpha :as gen]
    [clojure.string :as string]
+   [clojure.test.check.generators]
    [nuid.bn.impl]
-   [nuid.bn.proto :as proto]
-   #?@(:clj
-       [[clojure.alpha.spec.gen :as gen]
-        [clojure.alpha.spec :as s]]
-       :cljs
-       [[clojure.spec.gen.alpha :as gen]
-        [clojure.test.check.generators]
-        [clojure.spec.alpha :as s]])))
+   [nuid.bn.proto :as proto]))
 
 (s/def ::string
   (s/and

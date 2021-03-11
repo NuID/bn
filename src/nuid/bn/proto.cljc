@@ -1,8 +1,7 @@
 (ns nuid.bn.proto
   (:refer-clojure :exclude [str mod])
   (:require
-   #?@(:clj  [[clojure.alpha.spec :as s]]
-       :cljs [[clojure.spec.alpha :as s]])))
+   [clojure.spec.alpha :as s]))
 
 (defprotocol BNable
   (from
